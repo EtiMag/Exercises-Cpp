@@ -1,0 +1,1 @@
+Command to compile with g++ and run `g++ main.cpp -o main -std=c++20 && ./main`
