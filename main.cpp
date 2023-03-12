@@ -6,9 +6,13 @@ void sayHello(int);
 void Inc(int&);
 void Inc(int*);
 
+
+
 int main() {
+    // input & output
     sayHello(8);
 
+    // references
     int i = 0;
     Inc(i);
     cout << i << endl;
@@ -28,6 +32,7 @@ void Inc(int* iptr) {
 
 void sayHello(int n) {
     for (int i = 0; i < n; i++) {
-        std::cout << "Hello" << i << std::endl;
+        cout << "Hello" << i << endl;
     }
 }
+
