@@ -5,24 +5,29 @@
 #include "main.h"
 #include <regex>
 
-using namespace std;
 
 int main() {
     // input & output
     sayHello(3);
     testIncrements();
     testRegex();
+    int x1 = 1;
+    float x2 = 0.3;
+    displayNumber(x1);
+    displayNumber(x2);
+    char buffer[] = "B123456789";
+    std::cout << myAtoi<5>(buffer + 1) << std::endl;
     return 0;
 }
 
 void testIncrements() {
     // test increments on references and pointers
-    cout << "--- function testIncrements ---" << endl;
+    std::cout << "--- function testIncrements ---" << std::endl;
     int i = 0;
     Inc(i);
-    cout << i << endl;
+    std::cout << i << std::endl;
     Inc(&i);
-    cout << i << endl;
+    std::cout << i << std::endl;
 }
 
 void Inc(int& i) {
@@ -30,43 +35,60 @@ void Inc(int& i) {
 }
 
 void Inc(int* iptr) {
-    cout << "ptr" << endl;
+    std::cout << "ptr" << std::endl;
     (*iptr)++;
 }
 
 void sayHello(int n) {
-    cout << "--- function sayHello ---" << endl;
+    std::cout << "--- function sayHello ---" << std::endl;
     for (int i = 0; i < n; ++i) {
-        cout << "Hello" << i << endl;
+        std::cout << "Hello" << i << std::endl;
     }
 }
 
 void testRegex() {
     // regex_match
-    cout << "--- function testRegex ---" << endl;
-    string testString = "This is a test string ! 12f34";
-    regex pattern {R"((.*)(\d|f{3,10}))"};
+    std::cout << "--- function testRegex ---" << std::endl;
+    std::string testString = "This is a test string ! 12f34";
+    std::regex pattern {R"((.*)(\d|f{3,10}))"};
     bool IsMatching = regex_match(testString, pattern);
-    cout << boolalpha;
-    cout << IsMatching << endl;
+    std::cout << std::boolalpha;
+    std::cout << IsMatching << std::endl;
 
     // regex_search (put the first match in match)
-    smatch match;
+    std::smatch match;
     pattern = R"(.{2})";
     regex_search(testString.cbegin(), testString.cend(), match, pattern);
-    cout << match.str() << endl;
+    std::cout << match.str() << std::endl;
 
     // regex_iterator
-    sregex_iterator matchesBegin(testString.cbegin(), testString.cend(), pattern), matchesEnd;
+    std::sregex_iterator matchesBegin(testString.cbegin(), testString.cend(), pattern), matchesEnd;
     for_each(matchesBegin, matchesEnd, displayMatch);
     for_each(matchesBegin, matchesEnd, [](const auto& subMatchIter) { // same loop
-        cout << subMatchIter.str() << endl;
+        std::cout << subMatchIter.str() << std::endl;
     });
-    for (sregex_iterator it = matchesBegin; it != matchesEnd; ++it) { // same loop
-        cout << it->str() << endl;
+    for (std::sregex_iterator it = matchesBegin; it != matchesEnd; ++it) { // same loop
+        std::cout << it->str() << std::endl;
     }
 }
 
-void displayMatch(const smatch& it) {
-    cout << it.str() << endl;
+void displayMatch(const std::smatch& it) {
+    std::cout << it.str() << std::endl;
+}
+
+template<typename T>
+void displayNumber(const T& x) {
+    std::cout << "--- function displayNumber ---" << std::endl;
+    std::cout << x << std::endl;
+}
+
+template<int N>
+int myAtoi(char* sPtr) {
+    std::cout << "--- function myAtoi ---" << std::endl;
+    int result = 0;
+    for (int i = 0; i < N; ++i) {
+        result *= 10;
+        result += *(sPtr + i) - '0';
+    }
+    return result;
 }
